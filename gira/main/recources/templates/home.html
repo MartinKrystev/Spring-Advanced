@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+<body>
+<div class="page-container">
+
+    <header th:replace="~{fragments/commons::header}"></header>
+
+    <main class="content-wrap">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Tasks</span></h1>
+        <hr class="hr-3 w-75 bg-white"/>
+        <form class="mx-auto w-75 " method="" action="/">
+
+            <div th:each="t : ${allTasks}"
+                    class="card-group task-card">
+                <div class="card">
+
+                    <div class="card-title">
+                        <h5 class="card-title">Name</h5>
+                    </div>
+                    <div th:text="*{t.getName()}"
+                         class="card-footer">
+                        <small>Repair Laptop</small>
+                    </div>
+                </div>
+                <div class="card">
+
+                    <div class="card-title">
+                        <h5 class="card-title">Assigned to</h5>
+                    </div>
+                    <div th:text="*{t.getUser().getUsername()}"
+                         class="card-footer">
+                        <small>George</small>
+                    </div>
+                </div>
+                <div class="card">
+
+                    <div class="card-title">
+                        <h5 class="card-title">Classification</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small th:text="*{t.getClassification().getClassificationName()}"
+                               th:class="*{t.getClassification().getClassificationName()}"
+
+                                class="classifications SUPPORT">SUPPORT</small>
+<!--TODO:                               + the classifications class for the CSS for the one above!   -->
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <h5 class="card-title">Due Date</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small th:text="*{t.getDueDate()}">
+                            2020-08-30</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <h5 class="card-title">Progress</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small th:text="*{t.getProgress()}">
+                            OPEN</small>
+                    </div>
+                </div>
+
+                <a th:href="@{/home/progress{id}(id=*{t.getId()})}"
+                   class="button prBtn">Progress</a>
+            </div>
+
+        </form>
+    </main>
+
+    <footer th:replace="~{fragments/commons::footer}"></footer>
+
+</div>
+</body>
+</html>
